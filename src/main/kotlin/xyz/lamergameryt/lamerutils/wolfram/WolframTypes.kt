@@ -23,23 +23,19 @@ class WolframPod(
  * The class used for deserializing a Wolfram subpod.
  *
  * @property title the title of the subpod.
- * @property image the image of the processed subpod.
+ * @property img the image of the processed subpod.
  */
-class WolframSubpod(val title: String, img: WolframImage) {
-    val image: WolframImage = img
-}
+class WolframSubpod(val title: String, @get:JvmName("getImage") val img: WolframImage)
 
 /**
  * The class used for deserializing a Wolfram image.
  *
- * @property link the direct https link to the image.
+ * @property src the direct https link to the image.
  * @property title the title of the image.
  * @property width the width of the image in pixels.
  * @property height the height of the image in pixels.
  */
-class WolframImage(src: String, val title: String, val width: Int, val height: Int) {
-    val link: String = src
-}
+class WolframImage(@get:JvmName("getLink") val src: String, val title: String, val width: Int, val height: Int)
 
 /**
  * The class used for deserializing a Wolfram response.
