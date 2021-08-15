@@ -23,10 +23,10 @@ class LamerUtilsKotlinExample {
         val equation = "3x + 5"
 
         val response = WolframAPI.getWolframResponse(equation)
-        response.pods.forEach { pod: WolframPod ->
+        response.pods.forEach { pod ->
             println("----------")
             println(pod.title)
-            pod.subpods.forEach { subpod: WolframSubpod -> println(subpod.title + " : " + subpod.img.src) }
+            pod.subpods.forEach { subpod -> println(subpod.title + " : " + subpod.img.src) }
         }
     }
 
@@ -58,9 +58,9 @@ class LamerUtilsKotlinExample {
 
         val parser = TimeUtils.TimeParser(sampleTime)
         println("$sampleTime can also be written as : ")
-        println(parser.seconds.toString() + " seconds.")
-        println(parser.minutes.toString() + " minutes.")
-        println(parser.hours.toString() + " hours.")
+        println("${parser.seconds} seconds.")
+        println("${parser.minutes} minutes.")
+        println("${parser.hours} hours.")
         println("I can also write it shortened in HH MM SS format as ${TimeUtils.convertSecondsToText(parser.seconds)}")
     }
 
