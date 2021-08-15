@@ -10,17 +10,22 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * This class is used for AES 256-bit encryption and decryption.
+ *
+ * @sample xyz.lamergameryt.lamerutils.samples.LamerUtilsKotlinExample.aesEncryptorExample
  */
 @Suppress("unused")
 class AESEncryptor {
     private val keyType = "AES"
     private val cipherType = "AES/ECB/PKCS5Padding"
 
+    /**
+     * The secret key which will be used for encryption and decryption.
+     */
     var secretKey: SecretKey
         private set
 
     /**
-     * Generates a random 256-bit [secretKey].
+     * Create an instance of the class with a random 256-bit [secretKey].
      */
     constructor() {
         val generator: KeyGenerator = KeyGenerator.getInstance(keyType)
@@ -28,16 +33,24 @@ class AESEncryptor {
         secretKey = generator.generateKey()
     }
 
+    /**
+     * Create an instance of the class with [secretKey] as [key].
+     */
     constructor(key: ByteArray) {
         secretKey = SecretKeySpec(key, keyType)
     }
 
+    /**
+     * Create an instance of the class with [secretKey] as [key].
+     */
     constructor(key: SecretKey) {
         secretKey = key
     }
 
     /**
      * Encrypts the [input][str] string using AES-256 and the [secretKey].
+     *
+     * @return The encrypted string.
      */
     fun encrypt(str: String): String {
         val cipher = Cipher.getInstance(cipherType)
@@ -50,7 +63,9 @@ class AESEncryptor {
     }
 
     /**
-     * Decrypts the [input][str] string encrypted using AES-256 and the same [secretKey].
+     * Decrypts the [input][str] string encrypted using AES-256 and the [secretKey].
+     *
+     * @return The decrypted string.
      */
     fun decrypt(str: String): String {
         val cipher = Cipher.getInstance(cipherType)

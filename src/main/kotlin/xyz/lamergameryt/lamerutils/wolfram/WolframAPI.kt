@@ -2,6 +2,7 @@ package xyz.lamergameryt.lamerutils.wolfram
 
 import com.google.gson.Gson
 import kong.unirest.*
+import xyz.lamergameryt.lamerutils.generic.StringUtils
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
@@ -9,8 +10,13 @@ import java.util.*
 
 /**
  * This class is used to query the Wolfram|Alpha API without the need of an application id.
+ *
+ * @sample xyz.lamergameryt.lamerutils.samples.LamerUtilsKotlinExample.wolframAlphaExample
  */
 class WolframAPI {
+    /**
+     * This object defines all the static variables and methods present in [WolframAPI].
+     */
     companion object {
         private const val userAgent = "Wolfram Android App"
         private const val appId = "3H4296-5YPAGQUJK7"
@@ -30,7 +36,7 @@ class WolframAPI {
         /**
          * Send a GET request to the [WolframAPI][apiUrl] with the corresponding [equation].
          *
-         * @return a HttpResponse containing the JSON response.
+         * @return A HttpResponse containing the JSON response.
          */
         private fun getResponse(equation: String): HttpResponse<JsonNode> {
             val params = getParams(equation)
@@ -42,11 +48,9 @@ class WolframAPI {
         /**
          * Calculate the MD5 hash signature of the [query params][params] with the [salt].
          *
-         * @return the hash of the parameters.
+         * @return The hash of the parameters.
          */
         private fun getSignature(params: HashMap<String, String>): String {
-            fun ByteArray.toHex() = joinToString(separator = "") { byte -> "%02x".format(byte) }
-
             val signature = StringBuilder(salt)
             for (key in TreeSet(params.keys)) {
                 signature.append(key).append(encodeToUrl(params[key]))
@@ -54,20 +58,20 @@ class WolframAPI {
 
             val md = MessageDigest.getInstance("MD5")
             val digest = md.digest(signature.toString().toByteArray(StandardCharsets.UTF_8))
-            return digest.toHex().uppercase()
+            return StringUtils.convertToHex(digest)
         }
 
         /**
          * Encodes the [value] passed to a URL friendly format.
          *
-         * @return the encoded string url.
+         * @return The encoded string url.
          */
         private fun encodeToUrl(value: String?): String = URLEncoder.encode(value, StandardCharsets.UTF_8.toString())
 
         /**
          * Make a HashMap of parameters based on the [input] given.
          *
-         * @return the params HashMap.
+         * @return The params HashMap.
          */
         private fun getParams(input: String): HashMap<String, String> {
             val params = HashMap<String, String>()

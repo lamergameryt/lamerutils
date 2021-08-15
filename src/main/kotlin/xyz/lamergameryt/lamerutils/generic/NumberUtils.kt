@@ -7,9 +7,14 @@ import kotlin.math.pow
 
 /**
  * This class contains various static utilities for numbers.
+ *
+ * @sample xyz.lamergameryt.lamerutils.samples.LamerUtilsKotlinExample.numberUtilsExample
  */
 @Suppress("unused")
 class NumberUtils {
+    /**
+     * This object defines all the static variables and methods present in [NumberUtils].
+     */
     companion object {
         /**
          * Function to abbreviate [numValue] using default suffixes.

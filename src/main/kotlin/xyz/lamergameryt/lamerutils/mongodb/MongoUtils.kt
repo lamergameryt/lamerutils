@@ -6,8 +6,8 @@ import org.bson.Document
 /**
  * This class is used to create and handle MongoDB queries.
  *
- * @param connectionURL the URL for MongoDB to connect to
- * @param database the name of the database that will be used
+ * @param connectionURL The URL for MongoDB to connect to
+ * @param database The name of the database that will be used
  */
 @Suppress("unused")
 class MongoUtils(connectionURL: String, database: String) {
@@ -17,7 +17,7 @@ class MongoUtils(connectionURL: String, database: String) {
     /**
      * Find a document, and it's data from [collection] based on the [filter] specified.
      *
-     * @return the found document, null will be used if none are found matching the filter.
+     * @return The found document, null will be used if none are found matching the filter.
      */
     fun getDocument(collection: String, filter: Document): Document? {
         return database.getCollection(collection).find(filter).first()
@@ -43,7 +43,7 @@ class MongoUtils(connectionURL: String, database: String) {
      * Note: Safer to use than looping through [MongoCollection.find].
      * Prevents any cursor leakage if done incorrectly with [MongoCollection.find].
      *
-     * @return the data iterator from the collection
+     * @return The data iterator from the collection
      */
     fun getCollectionData(collectionName: String): MongoCursor<Document> {
         return database.getCollection(collectionName).find().iterator()
@@ -73,7 +73,7 @@ class MongoUtils(connectionURL: String, database: String) {
     /**
      * Grab a collection with the name [collectionName], from the database.
      *
-     * @return the collection retrieved.
+     * @return The collection retrieved.
      */
     fun getCollection(collectionName: String): MongoCollection<Document> {
         return database.getCollection(collectionName)
@@ -96,7 +96,7 @@ class MongoUtils(connectionURL: String, database: String) {
     /**
      * Check if a collection with the name [collectionName] exists since the method had been removed from MongoDB.
      *
-     * @return true if it exists, false if it does not.
+     * @return True if it exists, false if it does not.
      */
     fun collectionExists(collectionName: String): Boolean {
         val collectionNames: MongoIterable<String> = database.listCollectionNames()
@@ -111,7 +111,7 @@ class MongoUtils(connectionURL: String, database: String) {
     /**
      * Grab the database by its name.
      *
-     * @return the database that has been instantiated
+     * @return The database that has been instantiated
      */
     private val database: MongoDatabase
         get() = getMongoClient().getDatabase(databaseName)
@@ -119,7 +119,7 @@ class MongoUtils(connectionURL: String, database: String) {
     /**
      * Grab the MongoClient private field above.
      *
-     * @return the connection to the client.
+     * @return The connection to the client.
      */
     private fun getMongoClient(): MongoClient {
         return mongoClient
